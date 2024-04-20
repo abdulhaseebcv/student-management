@@ -60,7 +60,7 @@ const AddStudent = () => {
                     value={subjectName}
                     onChange={(e) => setSubjectName(e.target.value)}
                 />
-                <StyledInput type='text'
+                <StyledInput type='number'
                     placeholder='Grade'
                     value={grade}
                     onChange={(e) => setGrade(e.target.value)}
