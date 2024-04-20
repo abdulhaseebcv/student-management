@@ -70,7 +70,7 @@ const StudentTable = ({ searchQuery, filter }) => {
                         <th>Subject Name</th>
                         <th>Grade</th>
                         <th>Remarks</th>
-                        <th></th>
+                        {students.length > 0 && <th></th>}
                     </tr>
                 </thead>
                 <tbody>

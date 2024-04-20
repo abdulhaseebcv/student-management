@@ -24,6 +24,7 @@ const AddStudent = () => {
                 grade
             })
                 .then((response) => {
+                    console.log(response);
                     if (response?.data?.success) {
                         toast.success(response?.data?.message);
                         setTimeout(() => {
@@ -32,7 +33,6 @@ const AddStudent = () => {
                     }
                 })
                 .catch((error) => {
-                    console.log("error==>",error);
                     toast(error?.response?.data?.message);
                 })
                 .finally(() => {
