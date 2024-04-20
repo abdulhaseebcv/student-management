@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { LoadingContainer, Table, TableCell, TableContainer } from './StudentTableStyle'
 import { MdEditSquare, MdDelete } from "react-icons/md";
 import axios from '../../Config';
@@ -20,7 +20,7 @@ const StudentTable = ({ searchQuery, filter }) => {
                     setStudents(response?.data?.results);
                 }
             }).catch((error) => {
-                toast.error(error?.response?.data?.results)
+                toast.error(error.response.data.message || 'An error occurred. Please try again later');
             })
             .finally(() => {
                 setLoading(false);
@@ -41,21 +41,20 @@ const StudentTable = ({ searchQuery, filter }) => {
                 }
             })
             .catch((error) => {
-                toast.error(error?.response?.data?.message);
+                toast.error(error.response.data.message || 'An error occurred. Please try again later');
             })
             .finally(() => {
                 setLoading(false);
             });
     };
 
-    const filteredStudents = students.filter(student => {
-
-        const isNameMatch = student.studentName.toLowerCase().startsWith(searchQuery.toLowerCase());
-
-        const isRemarksMatch = filter === '' || student.remarks === filter;
-
-        return isNameMatch && isRemarksMatch;
-    });
+    const filteredStudents = useMemo(() => {
+        return students.filter(student => {
+            const isNameMatch = student.studentName.toLowerCase().startsWith(searchQuery.toLowerCase());
+            const isRemarksMatch = filter === '' || student.remarks === filter;
+            return isNameMatch && isRemarksMatch;
+        });
+    }, [students, searchQuery, filter]);
 
     useEffect(() => {
         fetchStudents();
@@ -91,7 +90,7 @@ const StudentTable = ({ searchQuery, filter }) => {
                             </td>
                         </tr>
                     ) : (
-                        students && filteredStudents.map((student) => (
+                        students.length > 0 && filteredStudents.map((student) => (
                             <tr key={student?._id}>
                                 <TableCell>{student?.studentName}</TableCell>
                                 <TableCell>{student?.subject?.subjectName}</TableCell>

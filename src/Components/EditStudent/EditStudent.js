@@ -28,7 +28,7 @@ const EditStudent = () => {
                 }
             })
             .catch((error) => {
-                toast.error(error?.response?.data?.message);
+                toast.error(error.response.data.message || 'An error occurred. Please try again later');
             })
             .finally(() => {
                 setLoading(false);
@@ -54,7 +54,7 @@ const EditStudent = () => {
                     }
                 })
                 .catch((error) => {
-                    toast.error(error?.response?.data?.message);
+                    toast.error(error.response.data.message || 'An error occurred. Please try again later');
                 })
         }
     }
@@ -101,7 +101,7 @@ const EditStudent = () => {
                         value={grade}
                         onChange={(e) => setGrade(e.target.value)}
                     />
-                    <StyledButton type='submit'>Add</StyledButton>
+                    <StyledButton type='submit'>Update</StyledButton>
                     <StyledButton type="button" $cancel onClick={handleCancel}>Cancel</StyledButton>
                 </StyledForm>
             )}
