@@ -28,8 +28,7 @@ const EditStudent = () => {
                 }
             })
             .catch((error) => {
-                console.log("error==>",error);
-                toast(error?.response?.data?.message);
+                toast.error(error?.response?.data?.message);
             })
             .finally(() => {
                 setLoading(false);
@@ -55,7 +54,7 @@ const EditStudent = () => {
                     }
                 })
                 .catch((error) => {
-                    toast(error?.response?.data?.message);
+                    toast.error(error?.response?.data?.message);
                 })
         }
     }
